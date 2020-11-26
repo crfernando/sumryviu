@@ -1,0 +1,137 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from gensim.utils import simple_preprocess\n",
+    "import spacy\n",
+    "nlp = spacy.load(\"en\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "text = \"This iPhone came in almost new condition. It also came with its own changer, which was a plus. However, the battery health was at 80%. After a month worth of use, it is down to 76%. While I am careful to charge the battery and disconnect it as soon as it reaches 100% charge, still, the battery health for an iPhone 6S cannot be expected to be any higher, considering the years of use any pre-owned phone might have had. A good suggestion might be to replace the old battery with a new one. Definitely, seller is not to be blamed for battery's condition.\"\n",
+    "docx = nlp(text)\n",
+    "# print([chunk.text for chunk in doc.noun_chunks])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def preprocess(text):\n",
+    "    ''' \n",
+    "        This preprocessing function takes text as input and applies the following and return list of tokens\n",
+    "        - removes punctuation\n",
+    "        - removes stop words\n",
+    "        - lemmatization\n",
+    "        - lowercases the token\n",
+    "    '''\n",
+    "    return [token.text.lower() for token in text.noun_chunks]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "noun_phrase = preprocess(docx)\n",
+    "print(noun_phrase)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "iphone\n",
+      "almost\n",
+      "new\n",
+      "condition\n",
+      "changer\n",
+      "plus\n",
+      "battery\n",
+      "health\n",
+      "use\n",
+      "battery\n",
+      "charge\n",
+      "battery\n",
+      "health\n",
+      "iphone\n",
+      "years\n",
+      "use\n",
+      "pre\n",
+      "owned\n",
+      "phone\n",
+      "good\n",
+      "suggestion\n",
+      "old\n",
+      "battery\n",
+      "new\n",
+      "one\n",
+      "seller\n",
+      "battery\n",
+      "condition\n"
+     ]
+    }
+   ],
+   "source": [
+    "from nltk.corpus import stopwords\n",
+    "stop_words=stopwords.words('english')\n",
+    "\n",
+    "for i in simple_preprocess(str(noun_phrase)):\n",
+    "    if i not in stop_words:\n",
+    "        print(i)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from gensim.utils import simple_preprocess\n",
+    "preprocess_text = simple_preprocess(str(text))\n",
+    "for i in preprocess_text:\n",
+    "    preprocess_text = \" \".join(preprocess_text)\n",
+    "    \n",
+    "print(preprocess_text)    "
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
